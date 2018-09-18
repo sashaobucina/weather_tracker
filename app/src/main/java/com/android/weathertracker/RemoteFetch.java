@@ -33,7 +33,7 @@ public class RemoteFetch {
 
             StringBuffer json = new StringBuffer(1024);
             String temp = "";
-            while ((temp=reader.readLine()) != null) {
+            while ((temp = reader.readLine()) != null) {
                 json.append(temp).append("\n");
             }
             reader.close();
@@ -49,22 +49,24 @@ public class RemoteFetch {
 
             return resultData;
 
-        } catch (MalformedURLException e) {
-            Log.e(TAG, "The URL onstructed is not valid or malformed", e);
-            return null;
-        } catch (IOException e) {
-            Intent intent = new Intent(WeatherActivity.ACTION_EXTRA_HIDE_SPINNER);
-            context.sendBroadcast(intent);
-
-            Log.e(TAG, "Could not open URL connection", e);
-            return null;
-        } catch (JSONException e) {
-            Log.e(TAG, "Error while constructing JSON Object with weather information", e);
+        } catch (IOException | JSONException e) {
+            if (e instanceof IOException) {
+                Log.e(TAG, "Could not open URL connection", e);
+            } else {
+                Log.e(TAG, "Error while constructing JSON Object with weather information", e);
+            }
+            hideProgressBar(context);
             return null;
         } catch (Exception e) {
             Log.e(TAG, "Unexpected exception", e);
+            hideProgressBar(context);
             return null;
         }
+    }
+
+    private static void hideProgressBar(Context context) {
+        Intent intent = new Intent(WeatherActivity.ACTION_EXTRA_HIDE_SPINNER);
+        context.sendBroadcast(intent);
     }
 
 }
