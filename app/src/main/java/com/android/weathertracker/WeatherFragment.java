@@ -1,4 +1,4 @@
-package weathertracker.android.weathertracker;
+package com.android.weathertracker;
 
 import android.annotation.SuppressLint;
 import android.graphics.Typeface;
@@ -30,6 +30,7 @@ public class WeatherFragment extends Fragment {
     private TextView mCurrTempField;
     private TextView mWeatherIcon;
 
+    private boolean mIsValidCity = true;
     private Handler handler;
 
     public WeatherFragment() {

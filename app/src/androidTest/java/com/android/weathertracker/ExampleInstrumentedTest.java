@@ -1,4 +1,4 @@
-package weathertracker.android.weathertracker;
+package com.android.weathertracker;
 
 import android.content.Context;
 import android.support.test.InstrumentationRegistry;

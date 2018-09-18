@@ -1,4 +1,4 @@
-package weathertracker.android.weathertracker;
+package com.android.weathertracker;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -11,6 +11,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import android.content.Context;
+import android.content.Intent;
 import android.util.Log;
 
 public class RemoteFetch {
@@ -20,6 +21,7 @@ public class RemoteFetch {
             "http://api.openweathermap.org/data/2.5/weather?q=%s&units=metric";
 
     public static JSONObject getJSON(Context context, String city) {
+        BufferedReader reader = null;
         try {
             URL url = new URL(String.format(OPEN_WEATHER_APP_API, city));
             HttpURLConnection conn =
@@ -27,7 +29,7 @@ public class RemoteFetch {
 
             conn.addRequestProperty("x-api-key", context.getString(R.string.open_weather_maps_app_id));
 
-            BufferedReader reader = new BufferedReader(new InputStreamReader(conn.getInputStream()));
+            reader = new BufferedReader(new InputStreamReader(conn.getInputStream()));
 
             StringBuffer json = new StringBuffer(1024);
             String temp = "";
@@ -37,6 +39,9 @@ public class RemoteFetch {
             reader.close();
 
             JSONObject resultData = new JSONObject(json.toString());
+
+            Intent intent = new Intent(WeatherActivity.ACTION_EXTRA_HIDE_SPINNER);
+            context.sendBroadcast(intent);
 
             if (resultData.getInt("cod") != 200) {
                 return null;
@@ -48,6 +53,9 @@ public class RemoteFetch {
             Log.e(TAG, "The URL onstructed is not valid or malformed", e);
             return null;
         } catch (IOException e) {
+            Intent intent = new Intent(WeatherActivity.ACTION_EXTRA_HIDE_SPINNER);
+            context.sendBroadcast(intent);
+
             Log.e(TAG, "Could not open URL connection", e);
             return null;
         } catch (JSONException e) {

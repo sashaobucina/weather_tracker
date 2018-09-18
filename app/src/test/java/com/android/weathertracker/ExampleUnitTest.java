@@ -1,4 +1,4 @@
-package weathertracker.android.weathertracker;
+package com.android.weathertracker;
 
 import org.junit.Test;
 
