@@ -96,7 +96,6 @@ public class WeatherActivity extends AppCompatActivity {
         sendBroadcast(intent);
 
         wf.changeCity(city);
-        new CityPreference(this).setCity(city);
     }
 
     private class FetchListener extends BroadcastReceiver {
