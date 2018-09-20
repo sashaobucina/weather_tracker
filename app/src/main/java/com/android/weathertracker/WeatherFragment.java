@@ -22,8 +22,17 @@ import java.util.Locale;
 public class WeatherFragment extends Fragment {
     public static final String TAG = WeatherActivity.TAG;
 
+    /* weather icon ids */
+    private static final int THUNDER_ID = 2;
+    private static final int DRIZZLE_ID = 3;
+    private static final int RAINY_ID = 5;
+    private static final int SNOWY_ID = 6;
+    private static final int FOGGY_ID = 7;
+    private static final int CLOUDY_ID = 8;
+
     private Typeface mWeatherFont;
 
+    /* fields containing relevant weather data */
     private TextView mCityField;
     private TextView mUpdatedField;
     private TextView mDetailsField;
@@ -128,17 +137,17 @@ public class WeatherFragment extends Fragment {
             }
         } else {
             switch (id) {
-                case 2: icon = getActivity().getString(R.string.weather_thunder);
+                case THUNDER_ID: icon = getActivity().getString(R.string.weather_thunder);
                     break;
-                case 3: icon = getActivity().getString(R.string.weather_drizzle);
+                case DRIZZLE_ID: icon = getActivity().getString(R.string.weather_drizzle);
                     break;
-                case 7: icon = getActivity().getString(R.string.weather_foggy);
+                case FOGGY_ID: icon = getActivity().getString(R.string.weather_foggy);
                     break;
-                case 8: icon = getActivity().getString(R.string.weather_cloudy);
+                case CLOUDY_ID: icon = getActivity().getString(R.string.weather_cloudy);
                     break;
-                case 6: icon = getActivity().getString(R.string.weather_snowy);
+                case SNOWY_ID: icon = getActivity().getString(R.string.weather_snowy);
                     break;
-                case 5: icon = getActivity().getString(R.string.weather_rainy);
+                case RAINY_ID: icon = getActivity().getString(R.string.weather_rainy);
                     break;
             }
         }
