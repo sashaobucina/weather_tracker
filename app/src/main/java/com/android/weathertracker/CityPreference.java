@@ -5,10 +5,10 @@ import android.content.SharedPreferences;
 
 public class CityPreference {
 
-    SharedPreferences pref;
+    SharedPreferences mPref;
 
     public CityPreference(Activity activity) {
-        pref = activity.getPreferences(Activity.MODE_PRIVATE);
+        mPref = activity.getPreferences(Activity.MODE_PRIVATE);
     }
 
     /**
@@ -17,7 +17,7 @@ public class CityPreference {
      * @return the preferred city.
      */
     String getCity() {
-        return pref.getString("city", "Toronto, CAN");
+        return mPref.getString("city", "Toronto, CAN");
     }
 
     /**
@@ -26,7 +26,7 @@ public class CityPreference {
      * @param city The city to add as preferred.
      */
     void setCity(String city) {
-        pref.edit().putString("city", city).apply();
+        mPref.edit().putString("city", city).apply();
     }
 
 }

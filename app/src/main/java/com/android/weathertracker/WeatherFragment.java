@@ -22,7 +22,7 @@ import java.util.Locale;
 public class WeatherFragment extends Fragment {
     public static final String TAG = WeatherActivity.TAG;
 
-    Typeface weatherFont;
+    private Typeface mWeatherFont;
 
     private TextView mCityField;
     private TextView mUpdatedField;
@@ -30,17 +30,16 @@ public class WeatherFragment extends Fragment {
     private TextView mCurrTempField;
     private TextView mWeatherIcon;
 
-    private boolean mIsValidCity = true;
-    private Handler handler;
+    private Handler mHandler;
 
     public WeatherFragment() {
-        handler = new Handler();
+        mHandler = new Handler();
     }
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        weatherFont = Typeface.createFromAsset(getActivity().getAssets(),
+        mWeatherFont = Typeface.createFromAsset(getActivity().getAssets(),
                 String.format(Locale.US, "fonts/%s", "weather.ttf"));
 
     }
@@ -57,7 +56,7 @@ public class WeatherFragment extends Fragment {
         mCurrTempField = (TextView) rootView.findViewById(R.id.current_temp_field);
         mWeatherIcon = (TextView) rootView.findViewById(R.id.weather_icon);
 
-        mWeatherIcon.setTypeface(weatherFont);
+        mWeatherIcon.setTypeface(mWeatherFont);
         return rootView;
     }
 
@@ -66,7 +65,7 @@ public class WeatherFragment extends Fragment {
             public void run() {
                 final JSONObject json = RemoteFetch.getJSON(getActivity(), city);
                 if (json ==  null) {
-                    handler.post(new Runnable() {
+                    mHandler.post(new Runnable() {
                         @Override
                         public void run() {
                             Toast.makeText(getActivity(), getActivity().getString(R.string.no_weather_found), Toast.LENGTH_SHORT)
@@ -74,7 +73,7 @@ public class WeatherFragment extends Fragment {
                         }
                     });
                 } else {
-                    handler.post(new Runnable() {
+                    mHandler.post(new Runnable() {
                         @Override
                         public void run() {
                             renderWeather(json);
